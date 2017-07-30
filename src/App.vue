@@ -30,7 +30,7 @@
   
   <!-- This part would be dynamic -->
   <main>
-
+  <router-view></router-view>
   </main>
   </v-app>
 </template>

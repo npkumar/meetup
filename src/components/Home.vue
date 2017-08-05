@@ -33,20 +33,9 @@
 
 <script>
 export default {
-  data () {
-    return {
-      meetups: [
-        {
-          imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Hong_Kong_Night_Skyline.jpg',
-          id: '1',
-          title: 'Hong Kong'
-        },
-        {
-          imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/70/Ginza_at_Night%2C_Tokyo.jpg',
-          id: '2',
-          title: 'Tokyo'
-        }
-      ]
+  computed: {
+    meetups () {
+      return this.$store.getters.featuredMeetups
     }
   },
   methods: {

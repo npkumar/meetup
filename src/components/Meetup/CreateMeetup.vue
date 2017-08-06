@@ -46,7 +46,7 @@
 
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <img :src="imageUrl">
+              <img :src="imageUrl" height="150">
             </v-flex>
           </v-layout>
 
@@ -65,7 +65,7 @@
 
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-btn class="primary">Register</v-btn>
+              <v-btn class="primary" :disabled="!formIsValid">Register</v-btn>
             </v-flex>
           </v-layout>
         </form>
@@ -82,6 +82,14 @@
         location: '',
         imageUrl: '',
         description: ''
+      }
+    },
+    computed: {
+      formIsValid () {
+        return this.title !== '' &&
+          this.location !== '' &&
+          this.imageUrl !== '' &&
+          this.description !== ''
       }
     }
   }

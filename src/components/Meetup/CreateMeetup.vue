@@ -7,7 +7,7 @@
     </v-layout>
     <v-layout row>
       <v-flex xs12>
-        <form>
+        <form @submit.prevent="onCreateMeetup">
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
@@ -65,7 +65,11 @@
 
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-btn class="primary" :disabled="!formIsValid">Register</v-btn>
+              <v-btn
+                class="primary"
+                :disabled="!formIsValid"
+                @click="onCreateMeetup"
+                >Create Meetup</v-btn>
             </v-flex>
           </v-layout>
         </form>
@@ -90,6 +94,24 @@
           this.location !== '' &&
           this.imageUrl !== '' &&
           this.description !== ''
+      }
+    },
+    methods: {
+      onCreateMeetup () {
+        if (!this.formIsValid) {
+          return
+        }
+        const meetupData = {
+          title: this.title,
+          location: this.location,
+          imageUrl: this.imageUrl,
+          description: this.description,
+          date: new Date()
+        }
+        console.log(meetupData)
+        // dispatch to createMeetup action with data
+        this.$store.dispatch('createMeetup', meetupData)
+        this.$router.push('/meetups')
       }
     }
   }

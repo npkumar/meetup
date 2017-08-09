@@ -10,13 +10,17 @@ export const store = new Vuex.Store({
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Hong_Kong_Night_Skyline.jpg',
         id: '1',
         title: 'Hong Kong',
-        date: '2017-08-10'
+        date: '2017-08-10',
+        location: 'Hong Kong',
+        description: 'Foobar at HK'
       },
       {
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/70/Ginza_at_Night%2C_Tokyo.jpg',
         id: '2',
         title: 'Tokyo',
-        date: '2017-08-11'
+        date: '2017-08-11',
+        location: 'Tokyo',
+        description: 'Foobar at TK'
       }
     ],
     user: {

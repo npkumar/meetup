@@ -61,6 +61,20 @@ export const store = new Vuex.Store({
           // handle later
           console.log(err)
         })
+    },
+    signInUser ({commit}, payload) {
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+        .then(user => {
+          const theUser = {
+            id: user.uid,
+            // TODO: fix this
+            registeredMeetups: []
+          }
+          commit('setUser', theUser)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   getters: {

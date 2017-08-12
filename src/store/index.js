@@ -24,10 +24,7 @@ export const store = new Vuex.Store({
         description: 'Foobar at TK'
       }
     ],
-    user: {
-      id: '1',
-      registeredMeetups: [ '1' ]
-    }
+    user: null
   },
   mutations: {
     createMeetup (state, payload) {
@@ -72,6 +69,7 @@ export const store = new Vuex.Store({
         return meetupA.date > meetupB.date
       })
     },
+
     featuredMeetups (state, getters) {
       return getters.loadedMeetups.slice(0, 3)
     },
@@ -82,6 +80,10 @@ export const store = new Vuex.Store({
           return meetup.id === meetupId
         })
       }
+    },
+
+    user (state) {
+      return state.user
     }
   }
 })

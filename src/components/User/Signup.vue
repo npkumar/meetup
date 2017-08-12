@@ -5,7 +5,7 @@
         <v-card>
           <v-card-text>
             <v-container>
-              <form>
+              <form @submit.prevent="onSignUp">
 
                 <v-layout row>
                   <v-flex xs12>
@@ -74,7 +74,10 @@
     },
     methods: {
       onSignUp () {
-        console.log(this.email, this.password, this.confirmPassword)
+        this.$store.dispatch('signUpUser', {
+          email: this.email,
+          password: this.password
+        })
       }
     }
   }

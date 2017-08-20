@@ -52,7 +52,12 @@
                 </v-layout>
 
                 <v-layout row>
-                  <v-btn type="submit">SignUp</v-btn>
+                  <v-btn type="submit" :disabled="loading" :loading="loading">
+                    SignUp
+                    <span slot="loader" class="custom-loader">
+                      <v-icon light>cached</v-icon>
+                    </span>
+                  </v-btn>
                 </v-layout>
               </form>
             </v-container>
@@ -82,6 +87,9 @@
       error () {
         console.log('computed error', this.$store.getters.error)
         return this.$store.getters.error
+      },
+      loading () {
+        return this.$store.getters.loading
       }
     },
     watch: {

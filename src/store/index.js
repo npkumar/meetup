@@ -24,7 +24,9 @@ export const store = new Vuex.Store({
         description: 'Foobar at TK'
       }
     ],
-    user: null
+    user: null,
+    loading: false,
+    error: null
   },
   mutations: {
     createMeetup (state, payload) {
@@ -32,6 +34,15 @@ export const store = new Vuex.Store({
     },
     setUser (state, payload) {
       state.user = payload
+    },
+    setLoading (state, payload) {
+      state.loading = payload
+    },
+    setError (state, payload) {
+      state.error = payload
+    },
+    clearError (state) {
+      state.error = null
     }
   },
   actions: {
@@ -49,8 +60,11 @@ export const store = new Vuex.Store({
       commit('createMeetup', meetup)
     },
     signUpUser ({commit}, payload) {
+      commit('setLoading', true)
+      commit('clearError')
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then(user => {
+          commit('setLoading', false)
           const newUser = {
             id: user.uid,
             registeredMeetups: []
@@ -58,13 +72,18 @@ export const store = new Vuex.Store({
           commit('setUser', newUser)
         })
         .catch(err => {
+          commit('setLoading', false)
+          commit('setError', err)
           // handle later
           console.log(err)
         })
     },
     signInUser ({commit}, payload) {
+      commit('setLoading', true)
+      commit('clearError')
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(user => {
+          commit('setLoading', false)
           const theUser = {
             id: user.uid,
             // TODO: fix this
@@ -73,8 +92,13 @@ export const store = new Vuex.Store({
           commit('setUser', theUser)
         })
         .catch(err => {
+          commit('setLoading', false)
+          commit('setError', err)
           console.log(err)
         })
+    },
+    clearError ({commit}) {
+      commit('clearError')
     }
   },
   getters: {
@@ -98,6 +122,15 @@ export const store = new Vuex.Store({
 
     user (state) {
       return state.user
+    },
+
+    error (state) {
+      console.log('Getting error', state.error)
+      return state.error
+    },
+
+    loading (state) {
+      return state.loading
     }
   }
 })

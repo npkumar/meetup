@@ -49,15 +49,22 @@ export const store = new Vuex.Store({
     createMeetup ({commit}, payload) {
       // optional changes to payload
       const meetup = {
-        id: Date.now() + '',
         title: payload.title,
         location: payload.location,
         imageUrl: payload.imageUrl,
         description: payload.description,
-        date: payload.date
+        date: payload.date.toISOString()
       }
+
       // connect to firebase and store
-      commit('createMeetup', meetup)
+      firebase.database().ref('meetups').push(meetup)
+        .then(data => {
+          console.log(data)
+          commit('createMeetup', meetup)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     signUpUser ({commit}, payload) {
       commit('setLoading', true)

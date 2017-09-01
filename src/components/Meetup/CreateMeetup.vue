@@ -127,7 +127,6 @@
           date.setHours(this.time.getHours())
           date.setMinutes(this.time.getMinutes())
         }
-        console.log(date)
         return date
       }
     },
@@ -143,7 +142,6 @@
           description: this.description,
           date: this.submittableDateTime
         }
-        console.log(meetupData)
         // dispatch to createMeetup action with data
         this.$store.dispatch('createMeetup', meetupData)
         this.$router.push('/meetups')

@@ -85,7 +85,6 @@
         return this.$store.getters.user
       },
       error () {
-        console.log('computed error', this.$store.getters.error)
         return this.$store.getters.error
       },
       loading () {
@@ -107,7 +106,6 @@
         })
       },
       onDismissed () {
-        console.log('Dismissed alert')
         this.$store.dispatch('clearError')
       }
     }

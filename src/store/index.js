@@ -46,7 +46,7 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    createMeetup ({commit}, payload) {
+    createMeetup ({ commit }, payload) {
       // optional changes to payload
       const meetup = {
         title: payload.title,
@@ -59,14 +59,18 @@ export const store = new Vuex.Store({
       // connect to firebase and store
       firebase.database().ref('meetups').push(meetup)
         .then(data => {
-          console.log(data)
-          commit('createMeetup', meetup)
+          const key = data.key
+          console.log(key)
+          commit('createMeetup', {
+            ...meetup,
+            id: key
+          })
         })
         .catch(err => {
           console.log(err)
         })
     },
-    signUpUser ({commit}, payload) {
+    signUpUser ({ commit }, payload) {
       commit('setLoading', true)
       commit('clearError')
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
@@ -85,7 +89,7 @@ export const store = new Vuex.Store({
           console.log(err)
         })
     },
-    signInUser ({commit}, payload) {
+    signInUser ({ commit }, payload) {
       commit('setLoading', true)
       commit('clearError')
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
@@ -104,7 +108,7 @@ export const store = new Vuex.Store({
           console.log(err)
         })
     },
-    clearError ({commit}) {
+    clearError ({ commit }) {
       commit('clearError')
     }
   },

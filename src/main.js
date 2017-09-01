@@ -25,5 +25,8 @@ new Vue({
 
     }
     firebase.initializeApp(config)
+
+    // load existing meetups
+    this.$store.dispatch('loadMeetups')
   }
 })

@@ -26,6 +26,13 @@ new Vue({
     }
     firebase.initializeApp(config)
 
+    // detects if valid token if present
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user)
+      }
+    })
+
     // load existing meetups
     this.$store.dispatch('loadMeetups')
   }

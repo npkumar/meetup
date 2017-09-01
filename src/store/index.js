@@ -135,6 +135,19 @@ export const store = new Vuex.Store({
           console.log(err)
         })
     },
+
+    autoSignIn ({ commit }, payload) {
+      commit('setUser', {
+        id: payload.uid,
+        registeredMeetups: []
+      })
+    },
+
+    logout ({commit}) {
+      firebase.auth().signOut()
+      commit('setUser', null)
+    },
+
     clearError ({ commit }) {
       commit('clearError')
     }
